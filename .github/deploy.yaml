@@ -28,23 +28,40 @@ jobs:
 
             echo "📥 Устанавливаем зависимости"
             npm install -g pm2
-            npm install —g verdaccio
+            npm install -g verdaccio
 
             echo "🔄 Останавливаем PM2..."
             pm2 stop all || echo "⚠️ Нет запущенных процессов PM2"
             pm2 delete all || echo "⚠️ Нет приложений для удаления"
 
-            pm2 start verdaccio — — listen 0.0.0.0:4001
+            pm2 start verdaccio -- --listen 0.0.0.0:4001
 
             echo "✅ PM2 перезапущен успешно"
             pm2 list
 
-            echo "🔄 Обновляем конфиг nginx..."
+            echo "🔄 Настраиваем nginx..."
+            
+            # Копируем конфиг (предполагаем, что он лежит в репо)
+            sudo cp nginx/verdaccio.conf /etc/nginx/sites-available/verdaccio
+            
+            # Создаём симлинку, если её нет
+            if [ ! -L /etc/nginx/sites-enabled/verdaccio ]; then
+              echo "🔗 Создаём симлинку..."
+              sudo ln -s /etc/nginx/sites-available/verdaccio /etc/nginx/sites-enabled/verdaccio
+            else
+              echo "✅ Симлинка уже существует"
+            fi
+            
+            # Проверяем и перезагружаем nginx
+            echo "🔍 Проверяем конфиг nginx..."
             sudo nginx -t
+            
+            echo "🔄 Перезагружаем nginx..."
             sudo systemctl reload nginx
 
-             echo "✅ Nginx перезапущен успешно"
+            echo "✅ Nginx перезапущен успешно"
           '
+
       - name: Report Success
         if: success()
         run: echo "✅ Deploy is successfull!"
