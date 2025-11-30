@@ -65,7 +65,7 @@ jobs:
             echo "🔄Удаляем старый конф verdaccio и копируем новый"
             cp config.yaml ~/verdaccio/config.yaml
 
-            pm2 start verdaccio --listen 0.0.0.0:4001
+            pm2 start verdaccio -- --listen 0.0.0.0:4001
 
             echo "✅ PM2 перезапущен успешно"
             pm2 list
