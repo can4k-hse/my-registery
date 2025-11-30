@@ -62,7 +62,11 @@ jobs:
             pm2 stop all || echo "⚠️ Нет запущенных процессов PM2"
             pm2 delete all || echo "⚠️ Нет приложений для удаления"
 
-            pm2 start verdaccio -- --listen 0.0.0.0:4001
+            echo "🔄Удаляем старый конф verdaccio и копируем новый"
+            rm -f ~/.config/verdaccio/config.yaml
+            cp config.yaml ~/.config/verdaccio/config.yaml
+
+            pm2 start verdaccio --listen 0.0.0.0:4001
 
             echo "✅ PM2 перезапущен успешно"
             pm2 list
