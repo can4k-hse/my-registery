@@ -23,6 +23,9 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} '
             set -e
 
+            # Переходим в нужную папку
+            mkdir -p my-registry
+
             # Если ещё не клонировали — клонируем через SSH
             if [ ! -d .git ]; then
               echo "🔄 Клонируем репозиторий через SSH..."
