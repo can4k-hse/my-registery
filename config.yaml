@@ -13,13 +13,13 @@ packages:
   '@*/*':
     access: $all
     publish: $authenticated
-    publish: $authenticated
+    unpublish: $authenticated
     proxy: npmjs
 
   '**':
     access: $all
     publish: $authenticated
-    publish: $authenticated
+    unpublish: $authenticated
     proxy: npmjs
 
 listen: 0.0.0.0:4001
