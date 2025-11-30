@@ -1,0 +1,29 @@
+storage: ./storage
+plugins: ./plugins
+
+web:
+  title: Can4k personal NPM Registry
+
+auth:
+  htpasswd:
+    file: ./htpasswd
+    max_users: 1
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    publish: $authenticated
+    proxy: npmjs
+
+  '**':
+    access: $all
+    publish: $authenticated
+    publish: $authenticated
+    proxy: npmjs
+
+listen: 0.0.0.0:4001
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
