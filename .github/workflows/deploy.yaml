@@ -63,7 +63,7 @@ jobs:
             pm2 delete all || echo "⚠️ Нет приложений для удаления"
 
             echo "🔄Удаляем старый конф verdaccio и копируем новый"
-            cp config.yaml ~/.config/verdaccio/config.yaml
+            cp config.yaml ~/verdaccio/config.yaml
 
             pm2 start verdaccio --listen 0.0.0.0:4001
 
