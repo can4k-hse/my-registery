@@ -23,6 +23,13 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} '
             set -e
 
+            # Загружаем профиль оболочки
+            if [ -f ~/.bashrc ]; then
+              source ~/.bashrc
+            elif [ -f ~/.profile ]; then
+              source ~/.profile
+            fi
+
             # Переходим в нужную папку
             echo "🔄 Переходим в нужную папку.."
             mkdir -p my-registry
