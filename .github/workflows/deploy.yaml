@@ -70,7 +70,7 @@ jobs:
             echo "🔄 Настраиваем nginx..."
             
             # Копируем конфиг (предполагаем, что он лежит в репо)
-            sudo cp nginx/verdaccio.conf /etc/nginx/sites-available/verdaccio
+            sudo cp verdaccio.conf /etc/nginx/sites-available/verdaccio
             
             # Создаём симлинку, если её нет
             if [ ! -L /etc/nginx/sites-enabled/verdaccio ]; then
