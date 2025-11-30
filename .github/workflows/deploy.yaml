@@ -45,6 +45,15 @@ jobs:
               git pull
             fi
 
+            # Явно загружаем nvm (если используется)
+             echo "📥 Загружаем npm.."
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+            # Активируем нужную версию Node.js (укажи свою!)
+            nvm use 21.7.0 || { echo "❌ Не удалось переключиться на Node.js 18"; exit 1; }
+
             echo "📥 Устанавливаем зависимости"
             npm install -g pm2
             npm install -g verdaccio
